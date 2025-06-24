@@ -1,0 +1,9 @@
+name: VirtualPhone
+version: 1.0.0
+api: 5.0.0
+main: VirtualPhone\Main
+author: mchtra
+
+permissions:
+  virtualphone.use:
+    default: true
