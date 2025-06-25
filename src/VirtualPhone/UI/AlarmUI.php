@@ -5,6 +5,7 @@ namespace VirtualPhone\UI;
 use jojoe77777\FormAPI\CustomForm;
 use pocketmine\player\Player;
 use pocketmine\scheduler\ClosureTask;
+use pocketmine\world\sound\XpCollectSound;
 use VirtualPhone\Main;
 
 class AlarmUI {
@@ -24,7 +25,10 @@ class AlarmUI {
             $player->sendMessage("⏰ Alarm diatur! Kamu akan diingatkan dalam $delayMinutes menit.");
 
             Main::getInstance()->getScheduler()->scheduleDelayedTask(new ClosureTask(
-                fn() => $player->sendMessage("⏰ Pengingat: $message")
+                function() use ($player, $message): void {
+                    $player->sendMessage("⏰ Pengingat: $message");
+                    $player->getWorld()->addSound($player->getPosition(), new XpCollectSound());
+                }
             ), 20 * 60 * $delayMinutes);
         });
 
